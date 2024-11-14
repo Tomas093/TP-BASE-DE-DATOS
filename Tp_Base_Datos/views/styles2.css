@@ -1,0 +1,308 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* Evita que aparezcan barras de desplazamiento */
+}
+
+#titulo {
+  font-family: 'Rampart One', cursive;
+  font-size: 100px;
+  color: transparent;
+  background: linear-gradient(45deg, #00c6ff, #0072ff, #00c6ff); /* Gradiente más dinámico */
+  background-clip: text;
+  -webkit-background-clip: text;
+  text-align: center;
+  animation: gradient-animation 5s ease infinite; /* Animación de color */
+  transition: transform 0.4s ease, text-shadow 0.4s ease;
+  text-shadow: 5px 5px 20px rgba(0, 0, 0, 0.7), 0px 0px 30px rgba(0, 114, 255, 0.5); /* Sombra más suave y brillante */
+  position: relative;
+  top: 0;
+}
+
+.subtitle {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  color: #fff;
+  text-align: center;
+  margin: 20px 0;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+td {
+  color: #fff; /* Letras en blanco */
+  background-color: #333; /* Fondo oscuro */
+  font-family: 'Poppins', sans-serif; /* Fuente estilizada */
+  border-radius: 4px;
+}
+
+
+/* Animación del gradiente */
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+#titulo:hover {
+  transform: scale(1.1); /* Pequeña animación al pasar el mouse */
+  text-shadow: 7px 7px 25px rgba(0, 0, 0, 0.8), 0px 0px 40px rgba(0, 114, 255, 0.7); /* Sombra más profunda al hacer hover */
+}
+
+.contenedorPrincipal {
+  position: relative;
+  z-index: 1; /* Asegúrate de que esté por encima de las partículas */
+}
+
+button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 25px; /* Ajusta el padding para reducir el tamaño del botón */
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.5);
+  margin: 0; /* Elimina márgenes adicionales */
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 86, 179, 0.6);
+}
+
+select {
+  background-color: #2097ff;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 25px;
+  font-size: 17px;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  transition: all 0.3s ease-in-out;
+  appearance: none; 
+  margin-left: 0; /* Elimina margen izquierdo para acercar */
+  box-shadow: 0 4px 15px rgba(32, 151, 255, 0.5);
+}
+
+select:hover {
+  background-color: #1a7dd9;
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(26, 125, 217, 0.6);
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000; /* Fondo oscuro para destacar las partículas */
+  overflow: hidden; /* Evitar las barras de desplazamiento */
+}
+
+form {
+  text-align: center;
+}
+
+input[type="text"] {
+  width: 100%;
+  max-width: 500px; /* Aumenta el máximo ancho de la barra de búsqueda */
+  padding: 12px 20px;
+  font-size: 17px;
+  font-family: 'Montserrat', sans-serif;
+  color: hsl(0, 0%, 0%);
+  background-color: #f0f0f0;
+  border: 2px solid #2097ff;
+  border-radius: 50px;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+input[type="text"]:focus {
+  background-color: #e6f7ff;
+  border-color: #0056b3;
+  box-shadow: 0 4px 15px rgba(0, 86, 179, 0.5);
+}
+
+input[type="text"]:hover {
+  background-color: #ffffff;
+}
+
+input[type="text"]::placeholder {
+  color: grey;
+  opacity: 1;
+}
+
+.custom-input-wrapper {
+  display: inline-block;
+  position: relative;
+  flex: 1;
+}
+
+.filamedia form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px; /* Reducido para acercar los elementos del formulario */
+}
+
+/* Particles.js */
+#particles-js {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* Asegúrate de que esté en el fondo */
+}
+
+/* Change Background Color */
+#particles-js {
+  background-color: #000; /* Fondo oscuro para destacar las partículas */
+}
+
+/* NavBar */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: url("background.jpg") no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 50px;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  z-index: 100; /* Barra de navegación sobre todo */
+}
+
+.header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.header:hover::before {
+  left: 100%;
+}
+
+.logo {
+  color: #fff;
+  font-size: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: default;
+}
+
+.navbar a {
+  color: #fff;
+  font-size: 18px;
+  text-decoration: none;
+  margin-left: 10px; /* Reducido para acercar los enlaces */
+  transition: 0.3s;
+  font-family: 'Poppins', sans-serif; /* Cambia la fuente a Poppins, más fuerte y negrita */
+  font-weight: 600; /* Aumenta el peso de la fuente para hacerla más destacada */
+}
+
+.navbar a:hover {
+  color: #75AADB;
+}
+
+#menu-icon {
+  font-size: 36px;
+  color: #fff;
+  display: none;
+}
+
+/* BREAKPOINTS */
+@media (max-width: 992px) {
+  .header {
+    padding: 1.25rem 4%;
+  }
+}
+
+@media (max-width: 768px) {
+  #menu-icon {
+    display: block;
+  }
+  .navbar {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    padding: 0.5rem 4%;
+    display: none;
+  }
+  .navbar.active {
+    display: block;
+  }
+  .navbar a {
+    display: block;
+    margin: 1.5rem 0;
+  }
+  .nav-bg {
+    position: absolute;
+    top: 79px;
+    left: 0;
+    width: 100%;
+    height: 295px;
+    background: rgba(255, 255, 255, 0.1);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    z-index: 99;
+    display: none;
+  }
+  .nav-bg.active {
+    display: block;
+  }
+  .label{
+    display: block; /* Asegura que el label esté en su propia línea */
+    font-size: 14px; /* Tamaño de fuente ajustado */
+    font-weight: bold; /* Hace que el texto sea más destacado */
+    color: #333; /* Un color gris oscuro para un buen contraste */
+    margin-bottom: 5px; /* Espacio entre el label y el campo de entrada */
+  }
+}

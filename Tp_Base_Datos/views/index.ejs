@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="styles2.css">
+  <link href="https://fonts.googleapis.com/css2?family=Rampart+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,900&display=swap" rel="stylesheet">
+  <title>MovieWeb</title>
+  <link rel="icon" href="views/img/logo.png" type="image/png">
+</head>
+<body>
+  <!-- NavBar -->
+  <header class="header">
+    <a href="/" class="logo">
+      <img src="views/img/logo.png" alt="logo" width="55px">
+    </a>
+    <i class='bx bx-menu' id="menu-icon"></i>
+    <nav class="navbar">
+      <a href="/movies" class="nav-link">Películas</a>
+      <a href="/directors" class="nav-link">Directores</a>
+      <a href="/actors" class="nav-link">Actores</a>
+      <% if (user) { %>
+          <a class="nav-link"><%= user.name %></a>
+          <a href="/logout" class="nav-link">Cerrar Sesión</a>
+          <% if (user && user.name == "admin") { %>
+            <a href="/admin" class="nav-link">Listar Usuarios</a>
+        <% } %>        
+      <% } else { %>
+          <a href="/login" class="nav-link">Iniciar Sesión</a>
+      <% } %>
+    </nav>
+  </header>
+  
+  <div class="nav-bg"></div>
+  <div id="particles-js"></div>
+  
+  <div class="contenedorPrincipal">
+    <h1 id="titulo">Movie Web</h1>
+    <div class="filamedia">
+      <form action="/buscar" method="GET">
+        <div class="custom-input-wrapper">
+          <input type="text" name="q" placeholder="Ingrese..." required />
+        </div>
+        <div class="custom-select-wrapper">
+          <select name="type">
+            <option value="all">Todos</option>
+            <option value="title">Título</option>
+            <option value="actor">Actor</option>
+            <option value="director">Director</option>
+            <option value="keyword">Keyword</option>
+          </select>
+        </div>
+        <button type="submit">Buscar</button>
+      </form>
+    </div>
+  </div>
+  
+  <script src="particles.min.js"></script>
+  <script>
+    particlesJS('particles-js', {
+      "particles": {
+        "number": {
+          "value": 80,
+          "density": {
+            "enable": true,
+            "value_area": 800
+          }
+        },
+        "color": {
+          "value": "#ffffff"
+        },
+        "shape": {
+          "type": "circle",
+          "stroke": {
+            "width": 0,
+            "color": "#000000"
+          },
+          "polygon": {
+            "nb_sides": 5
+          },
+          "image": {
+            "src": "img/github.svg",
+            "width": 100,
+            "height": 100
+          }
+        },
+        "opacity": {
+          "value": 0.5,
+          "random": false
+        },
+        "size": {
+          "value": 3,
+          "random": true
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#ffffff",
+          "opacity": 0.4,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 6
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {
+            "enable": true,
+            "mode": "repulse"
+          },
+          "onclick": {
+            "enable": true,
+            "mode": "repulse"
+          }
+        }
+      },
+      "retina_detect": true
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/Loginstyles.css">
+    <link rel="icon" href="views/img/logo.png" type="image/png">
+    <title>Registrarse</title>
+</head>
+<body>
+    <div class="bgAnimation" id="bgAnimation">
+        <div class="backgroundAmim"></div>
+    </div>
+    <header class="header">
+        <a href="/" class="logo">
+            <img src="views/img/logo.png" alt="logo" width="55px">
+        </a>
+        <i class='bx bx-menu' id="menu-icon"></i>
+        <nav class="navbar">
+            <a href="/movies">Películas</a>
+            <a href="/directors" class="nav-link">Directores</a>
+            <a href="/actors">Actores</a>
+            <% if (user) { %>
+                <a href="/user.ejs"><%= user.name %></a>
+                <a href="/logout">Cerrar Sesión</a>
+              <% } else { %>
+                <a href="/login">Iniciar Sesión</a>
+              <% } %>
+        </nav>
+    </header>
+    <section>
+        <div class="login">
+            <img alt="login image" class="login__img">
+            <form action="/register" method="POST" class="login__form" id="register-form">
+                <h1 class="login__title">Registrarse</h1>
+                <div class="login__content">
+                    <!-- Campo de Usuario -->
+                    <div class="login__box">
+                        <i class="ri-user-3-line login__icon"></i>
+                        <div class="login__box-input">
+                            <input type="text" name="username" required class="login__input" id="login-username" placeholder=" " autocomplete="off">
+                            <label for="login-username" class="login__label">Usuario</label>
+                        </div>
+                    </div>
+            
+                    <!-- Campo de Contraseña -->
+                    <div class="login__box">
+                        <i class="ri-lock-2-line login__icon"></i>
+                        <div class="login__box-input">
+                            <input type="password" name="password" required class="login__input" id="login-pass" placeholder=" ">
+                            <label for="login-pass" class="login__label">Contraseña</label>
+                            <i class="ri-eye-off-line login__eye" id="login-eye"></i>
+                        </div>
+                    </div>
+            
+                    <!-- Campo de Repetir Contraseña -->
+                    <div class="login__box">
+                        <i class="ri-lock-2-line login__icon"></i>
+                        <div class="login__box-input">
+                            <input type="password" required class="login__input" id="repeat-pass" placeholder=" ">
+                            <label for="repeat-pass" class="login__label">Repita La Contraseña</label>
+                            <i class="ri-eye-off-line login__eye" id="toggle-repeat-pass"></i>
+                        </div>
+                    </div>
+                </div>
+            
+                <!-- Contenedor para el mensaje de error -->
+                <p id="error-message" class="error-message" style="color: red; display: none;">Las contraseñas no coinciden.</p>
+            
+                <button type="submit" class="login__button">Registrarte</button>
+            </form>
+        </div>
+    </section>
+    
+    <!--=============== MAIN JS ===============-->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/background.js"></script>
+</body>
+</html>

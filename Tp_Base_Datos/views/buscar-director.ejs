@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Buscar Director</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" href="views/img/logo.png" type="image/png">
+</head>
+<body>
+    <header class="header">
+        <a href="/" class="logo">
+          <img src="views/img/logo.png" alt="logo" width="55px">
+        </a>
+        <i class='bx bx-menu' id="menu-icon"></i>
+        <nav class="navbar">
+          <a href="/movies" class="nav-link">Películas</a>
+          <a href="/directors" class="nav-link">Directores</a>
+          <a href="/actors" class="nav-link">Actores</a>
+          <% if (user) { %>
+              <a class="nav-link"><%= user.name %></a>
+              <a href="/logout" class="nav-link">Cerrar Sesión</a>
+          <% } else { %>
+              <a href="/login" class="nav-link">Iniciar Sesión</a>
+          <% } %>
+        </nav>
+    </header>
+    <br>
+    <br>
+    <h1>Buscar Director</h1>
+    <form action="/buscar" method="GET">
+        <label for="director-name">Nombre del Director:</label>
+        <input type="text" id="director-name" name="q" required>
+        <button type="submit">Buscar</button>
+    </form>
+    <div id="inicio">
+        <a href="/" class="boton-inicio">Inicio</a>
+    </div>
+</body>
+</html>

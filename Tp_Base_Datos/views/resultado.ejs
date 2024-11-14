@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resultado de la Búsqueda</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="icon" href="views/img/logo.png" type="image/png">
+</head>
+<body>
+    <section class="wrapper">
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+        <div id="title"></div>
+    </section>
+    <header class="header">
+        <a href="/" class="logo">
+          <img src="views/img/logo.png" alt="logo" width="55px">
+        </a>
+        <i class='bx bx-menu' id="menu-icon"></i>
+        <nav class="navbar">
+          <a href="/movies" class="nav-link">Películas</a>
+          <a href="/directors" class="nav-link">Directores</a>
+          <a href="/actors" class="nav-link">Actores</a>
+          <% if (user) { %>
+              <a class="nav-link"><%= user.name %></a>
+              <a href="/logout" class="nav-link">Cerrar Sesión</a>
+          <% } else { %>
+              <a href="/login" class="nav-link">Iniciar Sesión</a>
+          <% } %>
+        </nav>
+    </header>
+    <br>
+    <br>
+<h1 class="subtitle">Resultado de la Búsqueda</h1>
+<p><strong><%= message %></strong></p>
+<% if (movies.length === 0) { %>
+    <p>No hay resultados.</p>
+<% } else { %>
+    <ul>
+        <% movies.forEach((movie) => { %>
+            <li class="resultado"><a href="/pelicula/<%= movie.movie_id %>"><%= movie.title %></a></li>
+        <% }); %>
+    </ul>
+<% } %>
+<p></p>
+<div id="inicio"><a class="links" href="/">Inicio</a></div>
+</body>
+</html>
+
+  

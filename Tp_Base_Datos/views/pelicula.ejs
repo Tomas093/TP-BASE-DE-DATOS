@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= movie.title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <script>nav.js</script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone" rel="stylesheet"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Foldit:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="icon" href="views/img/logo.png" type="image/png">
+</head>
+<body>
+  <br>
+    <section class="wrapper">
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+        <div id="title"></div>
+    </section>
+    <header class="header">
+        <a href="/" class="logo">
+          <img src="views/img/logo.png" alt="logo" width="55px">
+        </a>
+        <i class='bx bx-menu' id="menu-icon"></i>
+        <nav class="navbar">
+          <a href="/movies" class="nav-link">Películas</a>
+          <a href="/directors" class="nav-link">Directores</a>
+          <a href="/actors" class="nav-link">Actores</a>
+          <% if (user) { %>
+              <a class="nav-link"><%= user.name %></a>
+              <a href="/logout" class="nav-link">Cerrar Sesión</a>
+          <% } else { %>
+              <a  href="/login" class="nav-link">Iniciar Sesión</a>
+          <% } %>
+        </nav>
+    </header>
+    <br>
+<div class="nav-bg"></div>
+<h1><%= movie.title %></h1>
+<h3 class="peli-title">Fecha: <%= movie.release_date %></h3>
+<h3 class="peli-title">Género(s):</h3>
+<ul>
+    <% if (movie.genres && movie.genres.length > 0) { %>
+        <% movie.genres.forEach((genre) => { %>
+            <li id = "overview"><%= genre %></li>
+        <% }); %>
+    <% } else { %>
+        <li id = "overview">No se encontraron géneros.</li>
+    <% } %>
+</ul>
+
+<h3 class="peli-title">Dirigida por: </h3>
+<ul>
+    <% movie.directors.forEach((director) => { %>
+        <li id = "overview">
+            <a href="/director/<%= director.crew_member_id %>"><%= director.crew_member_name %></a>
+        </li>
+    <% }); %>
+</ul>
+<h3 class="peli-title">Escrita por: </h3>
+<ul>
+    <% movie.writers.forEach((writer) => { %>
+        <li class="peli-title2">
+            <%= writer.crew_member_name %>
+        </li>
+    <% }); %>
+</ul>
+<h3 class="peli-title">Argumento:</h3>
+<div id="overview"><%= movie.overview %></p></div>
+<h3 class="peli-title" >Producida en</h3>
+<ul>
+    <% movie.countries.forEach(function(country) { %>
+        <li id = "overview"><%= country %></li>
+   <%});%>
+</ul>
+<h3 class="peli-title">Reseñas de la Película:</h3>
+
+      <!-- Lista de reseñas existentes -->
+<div class="reviews-list">
+    <% if (movie.reviews && movie.reviews.length > 0) { %>
+        <% movie.reviews.forEach((review) => { %>
+            <div class="review-item">
+                <p class="review-content"><%= review.content %></p>
+                <div class="review-meta">
+                    <p class="review-author">
+                        <strong><%= review.username %></strong>
+                    </p>
+                    <div class="review-stars">
+                        <% const stars = parseInt(review.stars) || 0; %>
+                        <% for(let i = 0; i < 5; i++) { %>
+                            <span class="<%= i < stars ? 'star-filled' : 'star-empty' %>">
+                                <%= i < stars ? '★' : '☆' %>
+                            </span>
+                        <% } %>
+                        <span class="stars-count">(<%= stars %>)</span>
+                    </div>
+                </div>
+            </div>
+        <% }); %>
+    <% } else { %>
+        <div class="no-reviews">No hay reseñas disponibles.</div>
+    <% } %>
+</div>
+
+    <!-- Formulario para nueva reseña -->
+    <% if (user) { %>
+        <div class="center">
+            <div class="rate">
+              <div class="question">
+                <div class="title">¿Qué te pareció <%= movie.title %>?</div>
+                <div class="content">
+                  <p>Comparte tu experiencia y ayuda a otros a descubrir esta película.</p>
+                </div>
+              </div>
+              <div class="stars">
+                <input type="radio" name="rate1" id="r11" value="5" />
+                <label for="r11" class="star"></label>
+                <input type="radio" name="rate1" id="r12" value="4" />
+                <label for="r12" class="star"></label>
+                <input type="radio" name="rate1" id="r13" value="3" />
+                <label for="r13" class="star"></label>
+                <input type="radio" name="rate1" id="r14" value="2" />
+                <label for="r14" class="star"></label>
+                <input type="radio" name="rate1" id="r15" value="1" />
+                <label for="r15" class="star"></label>
+              </div>
+              <div class="feedback">
+                <textarea name="" id="feedback" placeholder="Escribe tu reseña aquí..."></textarea>
+                <button class="submit-review hidden">Publicar Reseña</button>
+              </div>
+            </div>
+          </div>
+    <% } else { %>
+        <div class="center">
+            <div class="rate">
+                <div class="question">
+                    <div class="title">¿Quieres compartir tu opinión?</div>
+                    <div class="content">
+                        <p>Para escribir una reseña, <a href="/login">inicia sesión</a> o <a href="/register">crea una cuenta</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% } %>
+</div>
+
+<h3 class="peli-title">Elenco:</h3>
+<ul>
+    <% movie.cast.sort((a, b) => a.cast_order - b.cast_order).forEach((actor) => { %>
+        <li id = "overview"><a href="/actor/<%= actor.actor_id %>"><%= actor.actor_name %></a> - <%= actor.character_name %></li>
+    <% }); %>
+</ul>
+<h3 class="peli-title">Crew:</h3>
+<ul>
+    <% movie.crew.forEach((crewMember) => { %>
+        <li id = "overview">
+            <%= crewMember.crew_member_name %> - <%= crewMember.department_name %>
+            (<%= crewMember.job %>)
+        </li>
+    <% }); %>
+</ul>
+<h3 class="peli-title">Compañías de Producción:</h3>
+    <ul>
+        <% movie.production_companies.forEach(function(company) { %>
+            <li id = "overview"><%= company %></li>
+        <% }); %>
+    </ul>
+    <h3 class="peli-title">Idioma:</h3>
+    <ul>
+        <% movie.languages.forEach(function(language) { %>
+            <li><%= language %></li>
+        <% }); %>
+    </ul>
+<p></p>
+<div id="inicio"><a href="/">Inicio</a></div>
+
+<style>
+/* Estilos generales */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: rgb(17, 0, 0);
+}
+
+/* Star Rating Styles */
+.stars {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: row-reverse;
+    margin-bottom: 30px;
+    padding: 20px 0;
+}
+
+.star {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.star::before {
+    content: "star_border";
+    font-family: "Material Icons";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    color: gold;
+}
+
+.stars input {
+    display: none;
+}
+
+/* Estilos para el contenido de las reseñas y estrellas */
+.review-content {
+    color: white;
+    font-size: 20px; /* Aumentado de 18px a 20px */
+    line-height: 1.7; /* Ajustado para mejor legibilidad */
+    margin-bottom: 15px;
+}
+
+.review-stars {
+    font-size: 32px; /* Aumentado de 24px a 32px */
+    margin-top: 12px;
+}
+
+.star-filled {
+    color: gold;
+}
+
+.star-empty {
+    color: rgba(255, 215, 0, 0.3);
+}
+
+.stars-count {
+    color: white;
+    font-size: 18px; /* Aumentado proporcionalmente */
+    margin-left: 10px;
+    vertical-align: middle; /* Para alinear mejor con las estrellas más grandes */
+}
+
+.stars input:checked ~ .star::before {
+    content: "star";
+    animation: 0.25s linear expand;
+}
+
+.star:hover {
+    transform: scale(1.2);
+}
+
+@keyframes expand {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Review List Styles */
+.reviews-list {
+    width: 100%;
+    max-width: 900px;
+    margin: 30px auto;
+}
+
+.review-item {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    transition: 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.review-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.review-content {
+    color: white;
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.review-author {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 16px;
+    text-align: right;
+    margin: 0;
+}
+
+.review-author strong {
+    color: gold;
+    font-size: 17px;
+}
+
+.no-reviews {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.85);
+    font-style: italic;
+    padding: 25px;
+    font-size: 18px;
+}
+
+/* Login Prompt Styles */
+.login-prompt {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.login-prompt a {
+    color: gold;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.login-prompt a:hover {
+    text-decoration: underline;
+    color: #ffd700;
+}
+
+/* Review Form Styles */
+.center {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.rate {
+    background-color: rgba(255, 255, 255, 0.08);
+    padding: 30px;
+    border-radius: 12px;
+    margin: 30px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.rate .content a {
+    color: gold;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s ease;
+}
+
+.rate .content a:hover {
+    color: #ffd700;
+    text-decoration: underline;
+}
+
+
+.question {
+    margin-bottom: 25px;
+}
+
+.title {
+    color: white;
+    font-size: 24px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.content {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.feedback {
+    width: 100%;
+    height: fit-content;
+    max-height: 0px;
+    overflow: hidden;
+    transition: 0.4s ease-in-out;
+}
+
+.feedback textarea {
+    width: 100%;
+    height: 120px;
+    background-color: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    outline: none;
+    color: white;
+    padding: 15px;
+    margin-bottom: 20px;
+    font-size: 17px;
+    resize: vertical;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.feedback textarea:focus {
+    border-color: rgba(255, 215, 0, 0.5);
+    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+}
+
+.feedback textarea::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.submit-review {
+    background-color: gold;
+    color: black;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: 0.3s;
+    width: 100%;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.submit-review:hover {
+    transform: translateY(-2px);
+    background-color: #ffd700;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.submit-review:active {
+    transform: translateY(0);
+}
+
+.hidden {
+    display: none;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .reviews-list {
+        padding: 0 15px;
+    }
+    
+    .rate {
+        margin: 20px 15px;
+    }
+    
+    .star {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .star::before {
+        font-size: 40px;
+    }
+    
+    .title {
+        font-size: 20px;
+    }
+    
+    .review-content {
+        font-size: 16px;
+    }
+
+    .testimonials-section{
+	width: 100%;
+	padding: 0px 8%;
+}
+.testimonials-section .section-header{
+	max-width: 700px;
+	text-align: center;
+	margin: 30px auto 40px;
+}
+.section-header h1{
+	position: relative;
+	font-size: 36px;
+	color: var(--primary-clr);
+}
+.testimonials-container{
+	position: relative;
+}
+.testimonials-container .testimonial-card{
+	padding: 20px;
+}
+.testimonial-card .test-card-body{
+	background-color: var(--card-clr);
+	box-shadow: 2px 2px 20px rgba(0,0,0,0.12);
+	padding: 20px;
+}
+.test-card-body .quote{
+	display: flex;
+	align-items: center;
+}
+.test-card-body .quote i{
+	font-size: 45px;
+	color: var(--heading-clr);
+	margin-right: 20px;
+}
+.test-card-body .quote h2{
+	color: var(--heading-clr);
+}
+.test-card-body p{
+	margin: 10px 0px 15px;
+	font-size: 14px;
+	line-height: 1.5;
+	color: var(--text-clr);
+}
+.test-card-body .ratings{
+	margin-top: 20px;
+}
+.test-card-body .ratings i{
+	font-size: 17px;
+	color: var(--primary-clr);
+	cursor: pointer;
+}
+.testimonial-card .profile{
+	display: flex;
+	align-items: center;
+	margin-top: 25px;
+}
+.profile .profile-desc{
+	display: flex;
+	flex-direction: column;
+}
+.profile-desc span:nth-child(1){
+	font-size: 24px;
+	font-weight: bold;
+	color: var(--primary-clr);
+}
+.profile-desc span:nth-child(2){
+	font-size: 15px;
+	color: var(--text-clr);
+}
+.owl-nav{
+	position: absolute;
+	right: 20px;
+	bottom: -10px;
+}
+.owl-nav button{
+	border-radius: 50% !important;
+}
+.owl-nav .owl-prev i,
+.owl-nav .owl-next i{
+	padding: 10px !important;
+	border-radius: 50%;
+	font-size: 18px !important;
+	background-color: var(--card-clr) !important;
+	color: var(--primary-clr);
+	cursor: pointer;
+	transition: 0.4s;
+}
+.owl-nav .owl-prev i:hover,
+.owl-nav .owl-next i:hover{
+	background-color: var(--primary-clr) !important;
+	color: #e9e9e9;
+}
+.owl-dots{
+	margin-top: 15px;
+}
+.owl-dots .owl-dot span{
+	background-color: #434753 !important;
+	padding: 6px !important;
+}
+.owl-dot.active span{
+	background-color: var(--primary-clr) !important;
+}
+}
+</style>
+
+<script>
+    var stars = document.querySelector(".stars").querySelectorAll("input");
+stars.forEach((star) => {
+    star.addEventListener("change", feedback);
+});
+
+function feedback() {
+    document.querySelector(".feedback").style.maxHeight = "1000px";
+    document.querySelector(".submit-review").classList.remove("hidden");
+}
+
+const submitReviewButton = document.querySelector('.submit-review');
+
+submitReviewButton.addEventListener('click', async () => {
+    const reviewContent = document.querySelector('#feedback').value;
+    const rating = document.querySelector('input[name="rate1"]:checked')?.value;
+
+    if (!reviewContent || !rating) {
+        alert('Por favor, completa la reseña y la calificación.');
+        return;
+    }
+
+    try {
+        const response = await fetch(`/pelicula/<%= movie.id %>/review`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ content: reviewContent, rating })
+        });
+
+        if (response.ok) {
+            window.location.reload();
+        } else {
+            const data = await response.json();
+            alert(`Error al guardar la reseña: ${data.message}`);
+        }
+    } catch (error) {
+        console.error('Error al enviar la reseña:', error);
+        alert('Ocurrió un error al guardar la reseña. Inténtalo de nuevo más tarde.');
+    }
+});
+
+$('.testimonials-container').owlCarousel({
+    loop:true,
+    autoplay:true,
+    autoplayTimeout:6000,
+    margin:10,
+    nav:true,
+    navText:["<i class='fa-solid fa-arrow-left'></i>",
+             "<i class='fa-solid fa-arrow-right'></i>"],
+    responsive:{
+        0:{
+            items:1,
+            nav:false
+        },
+        600:{
+            items:1,
+            nav:true
+        },
+        768:{
+            items:2
+        },
+    }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/Loginstyles.css">
+    <link rel="icon" href="views/img/logo.png" type="image/png">
+    <title>Inicio de Sesion</title>
+</head>
+<body>
+    <div class="bgAnimation" id="bgAnimation">
+        <div class="backgroundAmim"></div>
+    </div>
+    <header class="header">
+    <a href="/" class="logo">
+      <img src="views/img/logo.png" alt="logo" width="55px">
+    </a>
+    <i class='bx bx-menu' id="menu-icon"></i>
+    <nav class="navbar">
+      <a href="/movies" class="nav-link">Películas</a>
+      <a href="/directors" class="nav-link">Directores</a>
+      <a href="/actors" class="nav-link">Actores</a>
+      <% if (user) { %>
+          <a class="nav-link"><%= user.name %></a>
+          <a href="/logout" class="nav-link">Cerrar Sesión</a>
+      <% } else { %>
+          <a href="/login" class="nav-link">Iniciar Sesión</a>
+      <% } %>
+    </nav>
+    </header>
+    <br>
+    <br>
+    <section>
+        <div class="login">
+            <img alt="login image" class="login__img">
+            <form id="loginForm" class="login__form" action="/login" method="post">
+                <h1 class="login__title">Login</h1>
+                <!-- Mensaje de error -->
+                <div id="error-message" style="color: red; display: none; margin-bottom: 10px; text-align: center;"></div>
+                
+                <div class="login__content">
+                    <div class="login__box">
+                        <i class="ri-user-3-line login__icon"></i>
+                        <div class="login__box-input">
+                            <input required class="login__input" id="login-email" placeholder=" " autocomplete="off" name="user" type="text">
+                            <label class="login__label">Usuario</label>
+                        </div>
+                    </div>
+
+                    <div class="login__box">
+                        <i class="ri-lock-2-line login__icon"></i>
+                        <div class="login__box-input">
+                            <input required class="login__input" id="login-pass" placeholder=" " name="pass">
+                            <label class="login__label">Contraseña</label>
+                            <i class="ri-eye-off-line login__eye" id="login-eye"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="login__check">
+                    <div class="login__check-group">
+                        <input type="checkbox" class="login__check-input" id="login-check">
+                        <label for="login-check" class="login__check-label">Recordarme</label>
+                    </div>
+                    <a href="/olvidastecontra" class="login__forgot">¿Has olvidado la contraseña?</a>
+                </div>
+
+                <button type="submit" class="login__button">Entrar</button>
+
+                <p class="login__register">
+                    ¿No tienes una cuenta? <a href="/register">Regístrate</a>
+                </p>
+            </form>
+        </div>
+    </section>
+    
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/background.js"></script>
+
+    
+// Actualiza el script en login.html
+<script>
+    // Script para el formulario de login
+document.getElementById('loginForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const username = document.getElementById('login-email').value;
+    const password = document.getElementById('login-pass').value;
+    const errorMessage = document.getElementById('error-message');
+
+    try {
+        const response = await fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password }),
+            credentials: 'same-origin' // Importante para mantener la sesión
+        });
+
+        const data = await response.json();
+        
+        if (data.success) {
+            // Guardar información del usuario en localStorage si "Recordarme" está marcado
+            if (document.getElementById('login-check').checked) {
+                localStorage.setItem('username', username);
+            }
+            
+            window.location.href = data.redirect;
+        } else {
+            errorMessage.style.display = 'block';
+            errorMessage.textContent = data.message || 'Error en el inicio de sesión';
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        errorMessage.style.display = 'block';
+        errorMessage.textContent = 'Error al conectar con el servidor';
+    }
+});
+</script>
+</body>
+</html>

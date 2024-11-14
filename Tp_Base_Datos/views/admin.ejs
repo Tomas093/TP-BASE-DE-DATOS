@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="styles2.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rampart+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,900&display=swap" rel="stylesheet">
+    <title>Admin - Lista de Usuarios</title>
+    <link rel="icon" href="views/img/logo.png" type="image/png">
+</head>
+<body>
+    <!-- NavBar -->
+    <header class="header">
+        <a href="/" class="logo">
+            <img src="views/img/logo.png" alt="logo" width="55px">
+        </a>
+        <i class='bx bx-menu' id="menu-icon"></i>
+        <nav class="navbar">
+            <a href="/" class="nav-link">Inicio</a>
+            <a href="/movies" class="nav-link">Películas</a>
+            <a href="/directors" class="nav-link">Directores</a>
+            <a href="/actors" class="nav-link">Actores</a>
+            <a href="/logout" class="nav-link">Cerrar Sesión</a>
+        </nav>
+    </header>
+    <br>
+    <div class="nav-bg"></div>
+    <div id="particles-js"></div>
+    <main class="contenedorPrincipal">
+        <h1 class="titulo">Lista de Usuarios</h1>
+        <div class="admin-container">
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Nombre de Usuario</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% users.forEach(user => { %>
+                        <tr>
+                            <td><%= user.username %></td>
+                            <td>
+                                <form action="/deleteUser/<%= user.username %>" method="POST">
+                                    <button class="delete-button" type="submit">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+            <a href="/" class="back-link">Volver a inicio</a>
+        </div>
+    </main>
+    <script src="particles.min.js"></script>
+  <script>
+    particlesJS('particles-js', {
+      "particles": {
+        "number": {
+          "value": 80,
+          "density": {
+            "enable": true,
+            "value_area": 800
+          }
+        },
+        "color": {
+          "value": "#ffffff"
+        },
+        "shape": {
+          "type": "circle",
+          "stroke": {
+            "width": 0,
+            "color": "#11111"
+          },
+          "polygon": {
+            "nb_sides": 5
+          },
+          "image": {
+            "src": "img/github.svg",
+            "width": 100,
+            "height": 100
+          }
+        },
+        "opacity": {
+          "value": 0.5,
+          "random": false
+        },
+        "size": {
+          "value": 3,
+          "random": true
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#ffffff",
+          "opacity": 0.4,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 6
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {
+            "enable": true,
+            "mode": "repulse"
+          },
+          "onclick": {
+            "enable": true,
+            "mode": "repulse"
+          }
+        }
+      },
+      "retina_detect": true
+    });
+  </script>
+</body>
+</html>

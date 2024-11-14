@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados de Búsqueda</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="icon" href="views/img/logo.png" type="image/png">
+    <style>
+        .result-columns {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .result-column {
+            flex: 1;
+            margin: 0 10px;
+        }
+        .result-column h3 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .result-column ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .result-column ul li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <section class="wrapper">
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+        <div id="title"></div>
+    </section>
+    <!-- NavBar --> 
+    <header class="header">
+        <a href="/" class="logo">
+          <img src="views/img/logo.png" alt="logo" width="55px">
+        </a>
+        <i class='bx bx-menu' id="menu-icon"></i>
+        <nav class="navbar">
+          <a href="/movies" class="nav-link">Películas</a>
+          <a href="/directors" class="nav-link">Directores</a>
+          <a href="/actors" class="nav-link">Actores</a>
+          <% if (user) { %>
+              <a class="nav-link"><%= user.name %></a>
+              <a href="/logout" class="nav-link">Cerrar Sesión</a>
+          <% } else { %>
+              <a href="/login" class="nav-link">Iniciar Sesión</a>
+          <% } %>
+        </nav>
+    </header>
+  <div class="nav-bg"></div>
+<br>
+<br>
+    <div class="bodybag">
+    <h1 class="subtitle">Resultados de Búsqueda</h1>
+    <p><strong><%= message %></strong></p>
+
+    <% if (movies.length === 0) { %>
+        <p>No hay resultados.</p>
+    <% } else { %>
+        <div class="result-columns">
+            <!-- Columna de Títulos de Películas -->
+            <div class="result-column">
+                <h3 class="animate__animated animate__fadeIn">Títulos de Películas</h3>
+                <ul>
+                    <% movies.forEach(movie => { %>
+                        <% if (movie.actor_name === null && movie.director_name === null) { %>
+                            <li><a href="/pelicula/<%= movie.movie_id %>"><%= movie.movie_title %></a></li>
+                        <% } %>
+                    <% }); %>
+                </ul>
+            </div>
+
+            <!-- Columna de Actores -->
+            <div class="result-column">
+                <h3 class="animate__animated animate__fadeIn">Actores</h3>
+                <ul>
+                    <% movies.forEach(movie => { %>
+                        <% if (movie.actor_name !== null) { %>
+                            <li><a href="/actor/<%= movie.actor_id %>"><%= movie.actor_name %></a></li>
+                        <% } %>
+                    <% }); %>
+                </ul>
+            </div>
+
+            <!-- Columna de Directores -->
+            <div class="result-column">
+                <h3 class="animate__animated animate__fadeIn">Directores</h3>
+                <ul>
+                    <% movies.forEach(movie => { %>
+                        <% if (movie.director_name !== null) { %>
+                            <li><a href="/director/<%= movie.director_id %>"><%= movie.director_name %></a></li>
+                        <% } %>
+                    <% }); %>
+                </ul>
+            </div>
+        </div>
+    <% } %>
+
+    <div id="inicio"><a href="/">Inicio</a></div>
+    </div>
+</body>
+</html>
+
+

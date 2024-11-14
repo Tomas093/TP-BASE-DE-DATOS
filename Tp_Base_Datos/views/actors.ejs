@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actores</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" href="views/img/logo.png" type="image/png">
+</head>
+<body>
+    <section class="wrapper">
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+        <div id="title"></div>
+    </section>
+    <header class="header">
+        <a href="/" class="logo">
+            <img src="views/img/logo.png" alt="logo" width="55px">
+        </a>
+        <i class="bx bx-menu" id="menu-icon"></i>
+        <nav class="navbar">
+            <a href="/movies" class="nav-link">Películas</a>
+            <a href="/directors" class="nav-link">Directores</a>
+            <a href="/actors" class="nav-link">Actores</a>
+            <% if (user) { %>
+                <a class="nav-link"><%= user.name %></a>
+                <a href="/logout" class="nav-link">Cerrar Sesión</a>
+            <% } else { %>
+                <a href="/login" class="nav-link">Iniciar Sesión</a>
+            <% } %>
+        </nav>
+    </header>
+    <br>
+    <main>
+        <br>
+        <br>
+        <h1>Actores</h1>
+        <ul>
+            <% actors.forEach((actor) => { %>
+                <li id="overview"><a href="/actor/<%= actor.person_id %>"><%= actor.person_name %></a></li>
+            <% }); %>
+        </ul>        
+    </main>
+    <footer>
+        <div id="inicio"><a href="/">Inicio</a></div>
+    </footer>
+</body>
+</html>
+<style>
+    a {
+        font-size: xx-large;
+    }
+</style>
